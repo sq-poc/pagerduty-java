@@ -59,7 +59,7 @@ public class PagerDutyHttpClient extends DefaultHttpClient {
     @Override
     protected CredentialsProvider createCredentialsProvider() {
         CredentialsProvider provider = super.createCredentialsProvider();
-        if (null == creds) {
+        if (null != creds) {
           provider.setCredentials(authScope, creds);
         }
 
