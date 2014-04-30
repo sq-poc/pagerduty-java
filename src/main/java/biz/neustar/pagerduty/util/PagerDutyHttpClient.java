@@ -83,8 +83,8 @@ public class PagerDutyHttpClient extends DefaultHttpClient {
             authScheme = new TokenAuthScheme();
         }
 
-        HttpHost host = new HttpHost(subdomain + ".pagerduty.com", 443, "https");
-        authCache.put(host, authScheme);
+        authCache.put(new HttpHost(subdomain + ".pagerduty.com", 443, "https"), authScheme);
+        authCache.put(new HttpHost(subdomain + ".pagerduty.com", -1, "https"), authScheme);
         // Add AuthCache to the execution context
         ctx.setAttribute(ClientContext.AUTH_CACHE, authCache);
 
