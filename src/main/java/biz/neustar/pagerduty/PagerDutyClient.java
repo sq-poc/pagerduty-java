@@ -38,6 +38,14 @@ public class PagerDutyClient {
         mapper = makeObjectMapper();
     }
 
+    @Inject
+    public PagerDutyClient(@Named("pagerduty.subdomain") String subdomain,
+                           @Named("pagerduty.token") String token) {
+        this.client = new PagerDutyHttpClient(subdomain, token);
+        this.baseUrl = "https://" + subdomain + ".pagerduty.com";
+        mapper = makeObjectMapper();
+    }
+
     private static ObjectMapper makeObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();
 
