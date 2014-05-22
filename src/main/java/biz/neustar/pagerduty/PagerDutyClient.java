@@ -7,6 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -28,6 +29,7 @@ public class PagerDutyClient {
 
     private String baseUrl;
     private ObjectMapper mapper;
+    private int requestTimeout;
 
     @Inject
     public PagerDutyClient(@Named("pagerduty.subdomain") String subdomain,
@@ -36,6 +38,28 @@ public class PagerDutyClient {
         this.client = new PagerDutyHttpClient(subdomain, username, password);
         this.baseUrl = "https://" + subdomain + ".pagerduty.com";
         mapper = makeObjectMapper();
+    }
+
+    @Inject
+    public PagerDutyClient(@Named("pagerduty.subdomain") String subdomain,
+                           @Named("pagerduty.token") String token) {
+        this.client = new PagerDutyHttpClient(subdomain, token);
+        this.baseUrl = "https://" + subdomain + ".pagerduty.com";
+        mapper = makeObjectMapper();
+    }
+
+    public void setRequestTimeout(int milliseconds) {
+        if (milliseconds < 0) {
+            throw new IllegalArgumentException("milliseconds must be >= 0");
+        }
+
+        this.requestTimeout = milliseconds;
+        HttpConnectionParams.setConnectionTimeout(this.client.getParams(), milliseconds);
+        HttpConnectionParams.setSoTimeout(this.client.getParams(), milliseconds);
+    }
+
+    public int getRequestTimeout() {
+        return this.requestTimeout;
     }
 
     private static ObjectMapper makeObjectMapper() {
