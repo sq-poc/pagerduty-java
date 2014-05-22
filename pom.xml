@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>biz.neustar</groupId>
     <artifactId>pagerduty</artifactId>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <name>PagerDuty Java API</name>
     <description />
     <url>http://opensource.webmetrics.com</url>
@@ -41,7 +41,7 @@
         <connection>scm:git:git@github.com:bazaarvoice/pagerduty-java.git</connection>
         <developerConnection>scm:git:git@github.com:bazaarvoice/pagerduty-java.git</developerConnection>
         <url>git@github.com:bazaarvoice/pagerduty-java.git</url>
-      <tag>pagerduty-1.1</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <properties>
