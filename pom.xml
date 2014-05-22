@@ -9,9 +9,10 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <groupId>com.bazaarvoice.commons</groupId>
+        <artifactId>bv-super-pom</artifactId>
+        <version>1.11</version>
+        <relativePath />
     </parent>
 
     <licenses>
@@ -37,9 +38,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:webmetrics/pagerduty-java.git</connection>
-        <developerConnection>scm:git:git@github.com:webmetrics/pagerduty-java.git</developerConnection>
-        <url>git@github.com:webmetrics/pagerduty-java.git</url>
+        <connection>scm:git:git@github.com:bazaarvoice/pagerduty-java.git</connection>
+        <developerConnection>scm:git:git@github.com:bazaarvoice/pagerduty-java.git</developerConnection>
+        <url>git@github.com:bazaarvoice/pagerduty-java.git</url>
     </scm>
 
     <properties>
