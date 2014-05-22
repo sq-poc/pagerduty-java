@@ -16,7 +16,7 @@ The easiest way to get started is to just add this dependency in to your Maven b
 <dependency>
     <groupId>biz.neustar</groupId>
     <artifactId>pagerduty</artifactId>
-    <version>1.0-beta-2</version>
+    <version>1.1</version>
 </dependency>
 ```
 
@@ -29,30 +29,55 @@ If you don't use Maven, you can still find the jars in the central Maven reposit
 Using
 -----
 
-The API is pretty straight forward if you've read the PagerDuty API docs:
+The API is pretty straight forward if you've read the PagerDuty API docs.
+
+### Create Client
+
+First, create a `PagerDutyClient` instance with either a
+username/password or API key.
 
 ```java
 PagerDutyClient client = new PagerDutyClient("subdomain", "username", "password");
+```
+or
+```java
+PagerDutyClient client = new PagerDutyClient("subdomain", "key");
+```
 
-// list incident counts
+### List Incident Counts
+
+```java
 IncidentsQuery query = new IncidentsQuery().withStatus("resolved").assignedToUser("bob");
 int count = client.getIncidentsCount(DateUtils.daysAgo(5), DateUtils.now(), query);
+```
 
-// trigger a new incident
+### Trigger A New Incident
+
+```java
 Map details = new HashMap();
 details.put("foo", "bar");
 EventResponse response = client.trigger("service_key", "optional description", "optional incident key", details);
 String incidentKey = response.getIncidentKey();
+```
 
-// resolve the incident
+### Resolve An Incident
+
+```java
 response = client.resolve("service_key", "optional description", incidentKey, details);
 ```
+
+### Dependency Injection
 
 You can also wire up the PagerDutyClient using dependency injection frameworks such as Guice. The three constructor parameters are bound to the following @Named parameters:
 
  - @Named("pagerduty.subdomain")
  - @Named("pagerduty.username")
  - @Named("pagerduty.password")
+
+Alternatively, if you have an API key:
+
+ - @Named("pagerduty.subdomain")
+ - @Named("pagerduty.token")
 
 Note: The client *always uses SSL* to make it's HTTP requests and until we hear a good reason we won't be offering an option to change this.
 
